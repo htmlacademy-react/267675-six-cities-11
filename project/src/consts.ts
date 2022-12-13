@@ -36,13 +36,22 @@ export enum APIRoute {
 
 export enum NameSpace {
   Data = 'DATA',
-  App = 'APP',
   User = 'USER',
 }
 
 export enum FavoriteStatus {
   Add = '/1',
   Del = '/0',
+}
+
+export enum RoomInfoPhotoCountSlice {
+  Begin = 0,
+  End = 6,
+}
+
+export enum CommentsCountSlice {
+  Begin = 0,
+  End = 10,
 }
 
 export const cities = [

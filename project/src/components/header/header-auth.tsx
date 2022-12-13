@@ -13,7 +13,7 @@ function HeaderAuth(): JSX.Element {
   const authUser = useAppSelector(getAuthUser);
   const isFavoriteOffersPostStatus = useAppSelector(getFavoriteOffersPostStatus);
   const favoriteOffersCount = useAppSelector(getFavoriteOffersCount);
-  const signOut = () => {
+  const handleSignOut = () => {
     dispatch(logoutAction());
     dispatch(fetchOffersAction());
   };
@@ -37,7 +37,7 @@ function HeaderAuth(): JSX.Element {
         <Link
           className="header__nav-link"
           to="/"
-          onClick={signOut}
+          onClick={handleSignOut}
           data-testid="link-sign-out"
         >
           <span className="header__signout">Sign out</span>

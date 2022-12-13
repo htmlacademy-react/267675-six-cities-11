@@ -20,7 +20,7 @@ function Main(): JSX.Element {
   const sortRef = useRef(SortType.Popular);
   const [sortUlState, setUlState] = useState(false);
   const {city} = useParams();
-  const offers = useAppSelector((state) => getSortOffers(state, city, sortRef.current));
+  const offers = useAppSelector(getSortOffers(sortRef.current, city));
   const getPlacesHeader = () => offers.length !== 0 && city ? `${offers.length} places to stay in ${city}` : 'No places to stay available';
 
   if (city && !cities.includes(city)) {

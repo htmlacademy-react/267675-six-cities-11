@@ -3,9 +3,9 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import thunk from 'redux-thunk';
 import {Provider} from 'react-redux';
 import * as router from 'react-router';
-import * as redux from '../hooks';
+import * as redux from '.';
 
-import useFavorite from './useFavorite';
+import useFavorite from './use-favorite';
 
 import {fakeRoomInfo} from '../utils/mocks';
 import {AuthorizationStatus} from '../consts';
