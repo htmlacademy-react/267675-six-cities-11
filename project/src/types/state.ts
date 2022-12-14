@@ -22,6 +22,7 @@ export type AppData = {
 export type UserProcess = {
   authStatus: AuthorizationStatus;
   authUser: string;
+  isSigning: boolean;
 };
 
 export type State = ReturnType<typeof store.getState>;

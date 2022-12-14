@@ -71,6 +71,7 @@ export const appData = createSlice({
       })
       .addCase(fetchPostCommentAction.rejected, (state) => {
         state.isCommentSubmitSuccessful = false;
+        state.isCommentPostStatus = false;
       })
       .addCase(fetchFavoriteOffersAction.pending, (state) => {
         state.isFavoriteOffersDataLoading = true;

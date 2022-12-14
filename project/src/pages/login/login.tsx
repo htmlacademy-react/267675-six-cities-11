@@ -9,7 +9,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthData} from '../../types/auth-data';
 import {cities} from '../../consts';
 import {loginAction} from '../../store/api-actions';
-import {getAuthorization} from '../../store/user-process/selectors';
+import {getAuthorizationSuccess, getIsSigning} from '../../store/user-process/selectors';
 
 const PASSWORD_REQUIREMENTS = {
   minLengh: 2,
@@ -19,7 +19,8 @@ const PASSWORD_REQUIREMENTS = {
 
 function Login(): JSX.Element {
   const navigate = useNavigate();
-  const isAuthorization = useAppSelector(getAuthorization);
+  const isAuthorizationSuccess = useAppSelector(getAuthorizationSuccess);
+  const isSigning = useAppSelector(getIsSigning);
   const {
     register,
     handleSubmit,
@@ -31,7 +32,7 @@ function Login(): JSX.Element {
   });
 
   useEffect(() => {
-    if (isAuthorization && isSubmitSuccessful){
+    if (isAuthorizationSuccess && isSubmitSuccessful){
       navigate('/');
       reset();
     }
@@ -89,6 +90,7 @@ function Login(): JSX.Element {
                   id="email"
                   placeholder="Email"
                   data-testid="login"
+                  disabled={isSigning}
                   {...register('login', {
                     required: true,
                     pattern: {
@@ -109,6 +111,7 @@ function Login(): JSX.Element {
                   placeholder="Password"
                   required
                   data-testid="password"
+                  disabled={isSigning}
                   {...register('password', {
                     required: 'Password is required',
                     minLength: {
@@ -128,7 +131,7 @@ function Login(): JSX.Element {
                 className="login__submit form__submit button"
                 type="submit"
                 data-testid="login-submit"
-                disabled={!isValid}
+                disabled={!isValid || isSigning}
               >Sign in
               </button>
             </form>

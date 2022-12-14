@@ -4,16 +4,16 @@ import {useAppDispatch, useAppSelector} from '.';
 
 import {Offer} from '../types/offers';
 import {AppRoute, FavoriteStatus} from '../consts';
-import {getAuthorization} from '../store/user-process/selectors';
+import {getAuthorizationSuccess} from '../store/user-process/selectors';
 import {fetchPostOfferFavoriteStatusAction} from '../store/api-actions';
 
 function useFavorite(offer : Offer | null): () => void {
-  const isAuthChecked = useAppSelector(getAuthorization);
+  const isAuthorizationSuccess = useAppSelector(getAuthorizationSuccess);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleFavorite = () => {
-    if (!isAuthChecked) {
+    if (!isAuthorizationSuccess) {
       navigate(AppRoute.Login);
     } else {
       dispatch(fetchPostOfferFavoriteStatusAction([String(offer?.id), offer?.isFavorite ? FavoriteStatus.Del : FavoriteStatus.Add]));

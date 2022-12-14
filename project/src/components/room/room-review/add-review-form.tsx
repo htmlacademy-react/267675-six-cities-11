@@ -6,7 +6,7 @@ import {useAppDispatch, useAppSelector} from '../../../hooks';
 
 import {NewComment} from '../../../types/comment';
 import {fetchPostCommentAction} from '../../../store/api-actions';
-import {getCommentSubmitSuccessful} from '../../../store/app-data/selectors';
+import {getCommentSubmitSuccessful, getCommentPostStatus} from '../../../store/app-data/selectors';
 
 const COMMENT_LENGTH = {
   min: 50,
@@ -17,6 +17,7 @@ function AddReviewForm(): JSX.Element {
   const {id} = useParams();
   const dispatch = useAppDispatch();
   const isCommentSubmitSuccessful = useAppSelector(getCommentSubmitSuccessful);
+  const isCommentPostStatus = useAppSelector(getCommentPostStatus);
   const {
     register,
     handleSubmit,
@@ -46,31 +47,31 @@ function AddReviewForm(): JSX.Element {
     >
       <label className="reviews__label form__label" htmlFor="review"></label>
       <div className="reviews__rating-form form__rating">
-        <input className="form__rating-input visually-hidden" value="5" id="5-stars" type="radio" {...register('rating', { required: true,})}/>
+        <input className="form__rating-input visually-hidden" value="5" id="5-stars" type="radio" {...register('rating', { required: true,})} disabled={isCommentPostStatus}/>
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
-        <input className="form__rating-input visually-hidden" value="4" id="4-stars" type="radio" {...register('rating', { required: true,})}/>
+        <input className="form__rating-input visually-hidden" value="4" id="4-stars" type="radio" {...register('rating', { required: true,})} disabled={isCommentPostStatus}/>
         <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
-        <input className="form__rating-input visually-hidden" value="3" id="3-stars" type="radio" {...register('rating', { required: true,})}/>
+        <input className="form__rating-input visually-hidden" value="3" id="3-stars" type="radio" {...register('rating', { required: true,})} disabled={isCommentPostStatus}/>
         <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
-        <input className="form__rating-input visually-hidden" value="2" id="2-stars" type="radio" {...register('rating', { required: true,})}/>
+        <input className="form__rating-input visually-hidden" value="2" id="2-stars" type="radio" {...register('rating', { required: true,})} disabled={isCommentPostStatus}/>
         <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
-        <input className="form__rating-input visually-hidden" value="1" id="1-star" type="radio" {...register('rating', { required: true,})}/>
+        <input className="form__rating-input visually-hidden" value="1" id="1-star" type="radio" {...register('rating', { required: true,})} disabled={isCommentPostStatus}/>
         <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
@@ -87,6 +88,7 @@ function AddReviewForm(): JSX.Element {
           minLength: COMMENT_LENGTH.min,
           maxLength: COMMENT_LENGTH.max,
         })}
+        disabled={isCommentPostStatus}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -97,7 +99,7 @@ function AddReviewForm(): JSX.Element {
         </p>
         <button
           className="reviews__submit form__submit button"
-          disabled={!isValid}
+          disabled={!isValid || isCommentPostStatus}
         >Submit
         </button>
       </div>
